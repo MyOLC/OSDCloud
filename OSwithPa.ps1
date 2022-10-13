@@ -6,7 +6,7 @@ $Params = @{
     OSBuild = "21H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-us"
-    OSLicense = "Business"
+    OSLicense = "Volume"
     SkipAutopilot = $true
     SkipODT = $true
 }
