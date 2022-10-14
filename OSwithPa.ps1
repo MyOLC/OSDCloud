@@ -8,7 +8,6 @@ $Global:MyOSDCloud = @{
 	ApplyCatalogFirmware = $false
 }
 $Params = @{
-    OS = "Windows 10"	
     OSBuild = "21H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-us"
