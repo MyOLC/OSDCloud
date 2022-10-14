@@ -15,4 +15,4 @@ $Params = @{
     SkipAutopilot = $true
     SkipODT = $true
 }
-Start-OSDCloud @Params-Firmware
+Start-OSDCloud @Params
