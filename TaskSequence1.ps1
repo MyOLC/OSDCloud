@@ -12,6 +12,11 @@ Import-Module OSD -Force
 #================================================
 #   [OS] Start-OSDCloud with Params
 #================================================
+$Global:MyOSDCloud = @{
+	ApplyManufacturerDrivers = $true
+	ApplyCatalogDrivers = $true
+	ApplyCatalogFirmware = $true
+}
 $Params = @{
     OSVersion = 'Windows 10'
     OSBuild = "21H1"
@@ -30,7 +35,7 @@ Install-Module AutopilotOOBE -Force
 Import-Module AutopilotOOBE -Force
 
 $Params = @{
-    Title = 'Our Llearning Cloud - Device Regitration'
+    Title = 'Our Learning Cloud - Device Regitration'
     GroupTag = 'ALD-Hybrid-Personal','ALD-Hybrid-Shared','ALD-DfE' 
     Hidden = 'GroupTagOptions','AddToGroup','AssignedComputerName','AssignedUser','PostAction'
     Assign = $true
@@ -104,8 +109,7 @@ start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE
 :: The next line is how you would apply a CustomProfile
 REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -CustomProfile OSDeploy
 :: The next line is how you would configure everything from the command line
-REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -Title 'OSDeploy Autopilot Registration' -GroupTag Enterprise -GroupTagOptions Development,Enterprise -Assign
-
+REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -Title 'Our Learning Cloud - Device Regitration' -GroupTag ALD-Hybrid-Personal -Assign
 exit
 '@
 $SetCommand | Out-File -FilePath "C:\Windows\Autopilot.cmd" -Encoding ascii -Force
