@@ -13,10 +13,10 @@ Import-Module OSD -Force
 #   [OS] Start-OSDCloud with Params
 #================================================
 $Params = @{
-    OSBuild = "21H2"
-    OSEdition = "Enterprise"
+    OSBuild = "21H1"
+    OSEdition = "Pro"
     OSLanguage = "en-us"
-    OSLicense = "Business"
+    OSLicense = "Retail"
     SkipAutopilot = $true
     SkipODT = $true
 }
@@ -30,8 +30,9 @@ Import-Module AutopilotOOBE -Force
 
 $Params = @{
     Title = 'OSDeploy Autopilot Registration'
-    GroupTag = 'ALD-Hybrid-Personal','ALD-Hybrid-Shared','DFE-'
-    Hidden = 'AddToGroup','AssignedComputerName','AssignedUser','PostAction','GroupTagOptions'
+    GroupTag = 'Enterprise'
+    GroupTagOptions = 'Development','Enterprise'
+    Hidden = 'AddToGroup','AssignedComputerName','AssignedUser','PostAction'
     Assign = $true
     Run = 'NetworkingWireless'
     Docs = 'https://autopilotoobe.osdeploy.com/'
