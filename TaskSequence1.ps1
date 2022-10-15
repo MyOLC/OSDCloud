@@ -13,14 +13,15 @@ Import-Module OSD -Force
 #   [OS] Start-OSDCloud with Params
 #================================================
 $Params = @{
+    OSVersion 'Windows 10'
     OSBuild = "21H1"
-    OSEdition = "Pro"
-    OSLanguage = "en-us"
-    OSLicense = "Retail"
+    OSEdition = "Enterprise"
+    OSLanguage = "en-gb"
+    OSLicense = "Volume"
     SkipAutopilot = $true
     SkipODT = $true
 }
-Start-OSDCloud @Params
+Start-OSDCloud @Params -ZTI
 #================================================
 #   WinPE PostOS Sample
 #   AutopilotOOBE Offline Staging
@@ -29,10 +30,9 @@ Install-Module AutopilotOOBE -Force
 Import-Module AutopilotOOBE -Force
 
 $Params = @{
-    Title = 'OSDeploy Autopilot Registration'
-    GroupTag = 'Enterprise'
-    GroupTagOptions = 'Development','Enterprise'
-    Hidden = 'AddToGroup','AssignedComputerName','AssignedUser','PostAction'
+    Title = 'Our Llearning Cloud - Device Regitration'
+    GroupTag = 'ALD-Hybrid-Personal','ALD-Hybrid-Shared','ALD-DfE' 
+    Hidden = 'GroupTagOptions','AddToGroup','AssignedComputerName','AssignedUser','PostAction'
     Assign = $true
     Run = 'NetworkingWireless'
     Docs = 'https://autopilotoobe.osdeploy.com/'
