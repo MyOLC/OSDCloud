@@ -1,0 +1,19 @@
+    $AutopilotOOBEJson = @"
+    {
+        "Assign":  {
+                        "IsPresent":  true
+                    },
+        "GroupTag":  "$AssignedComputerName",
+        "AddToGroup": "GroupX",
+        "Hidden":  [
+                        "AssignedComputerName",
+                        "AssignedUser",
+                        "PostAction",
+                        "Assign"
+                    ],
+        "PostAction":  "Quit",
+        "Run":  "NetworkingWireless",
+        "Docs":  "https://google.com/",
+        "Title":  "Manual Autopilot Register"
+    }
+"@
