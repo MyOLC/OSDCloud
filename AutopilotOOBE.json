@@ -4,16 +4,16 @@
                         "IsPresent":  true
                     },
         "GroupTag":  "$AssignedComputerName",
-        "AddToGroup": "GroupX",
         "Hidden":  [
                         "AssignedComputerName",
                         "AssignedUser",
                         "PostAction",
-                        "Assign"
+                        "Assign",
+                         "AddToGroup"
                     ],
         "PostAction":  "Quit",
         "Run":  "NetworkingWireless",
         "Docs":  "https://google.com/",
-        "Title":  "Manual Autopilot Register"
+        "Title":  "Our Learning Cloud - Autopilot Register"
     }
 "@
