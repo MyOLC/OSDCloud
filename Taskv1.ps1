@@ -72,8 +72,8 @@ start "Install-Module OSD" /wait PowerShell -NoL -C Install-Module OSD -Force -V
 :: Start-OOBEDeploy
 :: There are multiple example lines. Make sure only one is uncommented
 :: The next line assumes that you have a configuration saved in C:\ProgramData\OSDeploy\OSDeploy.OOBEDeploy.json
-start "Start-OOBEDeploy" PowerShell -NoL -C Start-OOBEDeploy
-The next line assumes that you do not have a configuration saved in or want to ensure that these are applied
+::start "Start-OOBEDeploy" PowerShell -NoL -C Start-OOBEDeploy
+::The next line assumes that you do not have a configuration saved in or want to ensure that these are applied
 REM start "Start-OOBEDeploy" PowerShell -NoL -C Start-OOBEDeploy -AddNetFX3 -UpdateDrivers -UpdateWindows
 
 exit
@@ -101,10 +101,10 @@ start "Install-Module AutopilotOOBE" /wait PowerShell -NoL -C Install-Module Aut
 :: Start-AutopilotOOBE
 :: There are multiple example lines. Make sure only one is uncommented
 :: The next line assumes that you have a configuration saved in C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json
-start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE
+::start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE
 :: The next line is how you would apply a CustomProfile
-REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -CustomProfile OSDeploy
-The next line is how you would configure everything from the command line
+::REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -CustomProfile OSDeploy
+::The next line is how you would configure everything from the command line
 REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -Title 'OLC Autopilot Registration' -GroupTag IMM-Hybrid-Shared -GroupTagOptions IMM-Hybrid-Personal,IMM-DfE -Assign
 
 exit
