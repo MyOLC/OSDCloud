@@ -29,15 +29,22 @@ Start-OSDCloud @Params
 Install-Module AutopilotOOBE -Force
 Import-Module AutopilotOOBE -Force
 
+Write-Host -ForegroundColor Green "Define Computername:"
+$Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
+$TargetComputername = $Serial.Substring(4,3)
+$AssignedComputerName = "BDAT-IMM-$TargetComputername"
+
 $Params = @{
     Title = 'OLC Autopilot Registration'
     GroupTag = 'IMM-Hybrid-Shared'
     GroupTagOptions = 'IMM-Hybrid-Personal','IMM-DfE'
-    Hidden = 'AddToGroup','AssignedComputerName','AssignedUser','PostAction'
+    Hidden = 'AddToGroup','AssignedUser','PostAction'
     Assign = $true
+    AssignedComputerName = $AssignedComputerName
     Run = 'NetworkingWireless'
     Docs = 'https://ourlearningcloud.org/'
 }
+
 AutopilotOOBE @Params
 #================================================
 #   WinPE PostOS Sample
@@ -101,11 +108,11 @@ start "Install-Module AutopilotOOBE" /wait PowerShell -NoL -C Install-Module Aut
 :: Start-AutopilotOOBE
 :: There are multiple example lines. Make sure only one is uncommented
 :: The next line assumes that you have a configuration saved in C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json
-::start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE
+   start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE
 :: The next line is how you would apply a CustomProfile
-::REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -CustomProfile OSDeploy
+:: REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -CustomProfile OSDeploy
 ::The next line is how you would configure everything from the command line
-REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -Title 'OLC Autopilot Registration' -GroupTag IMM-Hybrid-Shared -GroupTagOptions IMM-Hybrid-Personal,IMM-DfE -Assign
+::REM start "Start-AutopilotOOBE" PowerShell -NoL -C Start-AutopilotOOBE -Title 'OLC Autopilot Registration' -GroupTag IMM-Hybrid-Shared -GroupTagOptions IMM-Hybrid-Personal,IMM-DfE -Assign
 
 exit
 '@
