@@ -20,6 +20,8 @@ $Params = @{
     OSLicense = "Volume"
     SkipAutopilot = $true
     SkipODT = $true
+    ZTI = $true
+    Firmware = $true
 }
 Start-OSDCloud @Params
 #================================================
