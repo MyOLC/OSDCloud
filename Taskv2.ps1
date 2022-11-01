@@ -308,8 +308,8 @@ function Step-oobeStopComputer {
 }
 #endregion
 
-# Execute functions
-#Step-KeyboardLanguage
+# Execute functions Step-KeyboardLanguage
+
 Step-oobeExecutionPolicy
 Step-oobePackageManagement
 Step-oobeTrustPSGallery
