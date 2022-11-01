@@ -17,9 +17,10 @@ if ((Get-MyComputerModel) -match 'Virtual') {
 #=======================================================================
 $Params = @{
     OSVersion = "Windows 10"
-    OSBuild = "21H2"
+    OSBuild = "22H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-gb"
+    OSLicense = "Volume"
     ZTI = $true
     Firmware = $true
 }
