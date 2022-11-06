@@ -58,8 +58,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #  [PostOS] AutopilotOOBE Configuration Staging
 #================================================
 Write-Host -ForegroundColor Green "Define Computername:"
-$Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
-$TargetComputername = $Serial.Substring(4,4)
+$TargetComputername = $Serial = -join ((65..90) + (97..122) | Get-Random -Count 6 | % {[char]$_})
 
 $AssignedComputerName = "BDAT-IMM-$TargetComputername"
 Write-Host -ForegroundColor Red $AssignedComputerName
@@ -80,7 +79,7 @@ $AutopilotOOBEJson = @'
                    "AssignedComputerName",
                    "AssignedUser",
                    "PostAction",
-                   "GroupTag",
+                   "AddToGroup",
                    "Assign"
                ],
     "PostAction":  "Quit",
@@ -104,8 +103,8 @@ $OOBECMD = @'
 PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
 Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
 Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
-Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/AkosBakos/OSDCloud/main/Set-KeyboardLanguage.ps1
-Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/AkosBakos/OSDCloud/main/Install-EmbeddedProductKey.ps1
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Set-KeyboardLanguage.ps1?token=GHSAT0AAAAAAB2TV6VJKRG2BYQVEFL5KC6MY3HRGYA
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Install-EmbeddedProductKey.ps1?token=GHSAT0AAAAAAB2TV6VJZPTEESBQWWUB7EYQY3HRGBA
 Start /Wait PowerShell -NoL -C Start-OOBEDeploy
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
