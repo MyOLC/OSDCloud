@@ -60,7 +60,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 Write-Host -ForegroundColor Green "Define Computername:"
 $TargetComputername = $Serial = -join ((65..90) + (97..122) | Get-Random -Count 6 | % {[char]$_})
 
-$AssignedComputerName = """ + "BDAT-IMM-$TargetComputername" + """
+$AssignedComputerName = ""BDAT-IMM-$TargetComputername""
 Write-Host -ForegroundColor Red $AssignedComputerName
 Write-Host ""
 
