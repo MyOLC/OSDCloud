@@ -54,7 +54,16 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #================================================
 #  [PostOS] AutopilotOOBE Configuration Staging
 #================================================
+
+Write-Host -ForegroundColor Green "Define Computername:"
+$TargetComputername = $Serial = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 6 | % {[char]$_})
+
+$AssignedComputerName = "BDAT-IMM-$TargetComputername"
+Write-Host -ForegroundColor Red $AssignedComputerName
+Write-Host ""
+
 Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
+
 $AutopilotOOBEJson = @'
 {
     "Assign":  {
@@ -75,9 +84,9 @@ $AutopilotOOBEJson = @'
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://ourlearningcloud.org/",
-    "Title":  "OLC Autopilot Register"
-}
+    "Title":  "OLC Autopilot Register",
 '@
+$AutopilotOOBEJson += '"AssignedComputerName" : "' + $AssignedComputerName + '"}'
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
 }
