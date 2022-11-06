@@ -67,14 +67,14 @@ Write-Host ""
 Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
 $AutopilotOOBEJson = @'
 {
+    "GroupTag":  "BDAT-IMM-Shared",
     "Assign":  {
                    "IsPresent":  true
                },
-    "GroupTag":  "BDAT-IMM-Shared",
     "GroupTagOptions":  [
                     "IMM-Hybrid-Personal",
                     "IMM-DfE"
-    ],
+                    ],
     "Hidden":  [
                    "AssignedComputerName",
                    "AssignedUser",
@@ -88,7 +88,7 @@ $AutopilotOOBEJson = @'
     "Title":  "OLC Autopilot Register"
 }
 '@
-$AutopilotOOBEJson += '"AssignedComputerName" : "' + $AssignedComputerName + '"}'
+$AutopilotOOBEJson += '"AssignedComputerName" : "' + $AssignedComputerName + '"'
 
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
