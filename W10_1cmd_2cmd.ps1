@@ -75,7 +75,6 @@ $AutopilotOOBEJson = @'
                     "IMM-Hybrid-Personal",
                     "IMM-DfE"
                     ],
-    "AssignedComputerName" : $AssignedComputerName,
     "Hidden":  [
                    "AssignedComputerName",
                    "AssignedUser",
@@ -89,7 +88,7 @@ $AutopilotOOBEJson = @'
     "Title":  "OLC Autopilot Register"
 }
 '@
-
+$AutopilotOOBEJson += '",AssignedComputerName" : "' + $AssignedComputerName + '"
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
 }
