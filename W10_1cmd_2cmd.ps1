@@ -89,7 +89,7 @@ $AutopilotOOBEJson = @'
     "Title":  "OLC Autopilot Register"
 }
 '@
-$AutopilotOOBEJson += '"AssignedComputerName" : "' + $AssignedComputerName + '"}'
+$AutopilotOOBEJson | Add-Member “AssignedComputerName” $AssignedComputerName
 
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
