@@ -68,7 +68,6 @@ Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.Autop
 
 $AutopilotOOBEJson = @'
 {
-    "AssignedComputerName" : "$AssignedComputerName",
     "GroupTag":  "BDAT-IMM-Shared",
     "Assign":  {
                    "IsPresent":  true
@@ -87,9 +86,9 @@ $AutopilotOOBEJson = @'
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://ourlearningcloud.org/",
-    "Title":  "OLC Autopilot Register"
-}
+    "Title":  "OLC Autopilot Register",
 '@
+$AutopilotOOBEJson += '"AssignedComputerName" : "' + $AssignedComputerName + '"}'
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
 }
