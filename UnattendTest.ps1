@@ -38,10 +38,10 @@ $OOBEDeployJson = @'
                         "Microsoft.MicrosoftSolitaireCollection"
                    ],
     "UpdateDrivers":  {
-                          "IsPresent":  true
+                          "IsPresent":  false
                       },
     "UpdateWindows":  {
-                          "IsPresent":  true
+                          "IsPresent":  false
                       }
 }
 '@
