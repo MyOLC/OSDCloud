@@ -111,7 +111,7 @@ Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.
 Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/CleanUp.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
-$OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBEAkos.cmd' -Encoding ascii -Force
+$OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBEOLC.cmd' -Encoding ascii -Force
 
 #================================================
 #  [PostOS] SetupComplete CMD Command Line
