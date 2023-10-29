@@ -1,4 +1,4 @@
-# OOBE
+# oobetasks.osdcloud.ch
 
 $scriptFolderPath = "$env:SystemDrive\OSDCloud\Scripts"
 $ScriptPathOOBE = $(Join-Path -Path $scriptFolderPath -ChildPath "OOBE.ps1")
@@ -12,17 +12,29 @@ $OOBEScript =@"
 `$Global:Transcript = "`$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-OOBEScripts.log"
 Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
-Write-Host -ForegroundColor DarkGray "Uploading Hardware Hash..."
-Start-Process Powershell.exe -ExecutionPolicy Bypass -File "C:\temp\GAT-HashUploadManualv2.ps1"
+Write-Host -ForegroundColor DarkGray "Installing AutopilotOOBE PS Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
 
-Write-Host -ForegroundColor DarkGray "Installing/Updating Module..."
-Start-Process PowerShell -NoLogo -NoProfile -Command "Set-ExecutionPolicy Unrestricted; Install-Module OSD -Force; Import-Module OSD -Force" -Wait
+Write-Host -ForegroundColor DarkGray "Installing OSD PS Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
 
-Write-Host -ForegroundColor DarkGray "OOBE Deploy will start now..."
-PowerShell Start-OSDPad -RepoOwner MyOLC -RepoName MyScripts -BrandingTitle 'Our Learning Cloud - Bhavin Patel' -OAuth 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 -hide script -BrandingColor Magenta
+Write-Host -ForegroundColor DarkGray "Executing Keyboard Language Skript"
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/AkosBakos/OSDCloud/main/Set-KeyboardLanguage.ps1" -Wait
+
+Write-Host -ForegroundColor DarkGray "Executing Product Key Script"
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/AkosBakos/OSDCloud/main/Install-EmbeddedProductKey.ps1" -Wait
+
+Write-Host -ForegroundColor DarkGray "Executing Autopilot Check Script"
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://check-autopilotprereq.osdcloud.ch" -Wait
+
+Write-Host -ForegroundColor DarkGray "Executing AutopilotOOBE Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://start-autopilotoobe.osdcloud.ch" -Wait
+
+Write-Host -ForegroundColor DarkGray "Executing OOBEDeploy Script fomr OSDCloud Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Start-OOBEDeploy" -Wait
 
 Write-Host -ForegroundColor DarkGray "Executing Cleanup Script"
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/CleanUp.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://cleanup.osdcloud.ch" -Wait
 
 # Cleanup scheduled Tasks
 Write-Host -ForegroundColor DarkGray "Unregistering Scheduled Tasks"
@@ -61,7 +73,7 @@ Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding as
 
 # Download ServiceUI.exe
 Write-Host -ForegroundColor Gray "Download ServiceUI.exe from GitHub Repo"
-Invoke-WebRequest https://github.com/MyOLC/OSDCloud/blob/Main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
+Invoke-WebRequest https://github.com/AkosBakos/Tools/raw/main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
 
 #Create Scheduled Task for SendKeys with 15 seconds delay
 $TaskName = "Scheduled Task for SendKeys"
