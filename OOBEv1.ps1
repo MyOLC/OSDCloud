@@ -12,6 +12,9 @@ $OOBEScript =@"
 `$Global:Transcript = "`$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-OOBEScripts.log"
 Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
+Write-Host -ForegroundColor DarkGray "Installing NuGet Provider Module"
+Start-Process PowerShell -ArgumentList "-NoProfile Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Verbose" -Wait
+
 Write-Host -ForegroundColor DarkGray "Installing AutopilotOOBE PS Module"
 Start-Process PowerShell -ArgumentList "-NoProfile Install-Module AutopilotOOBE -Force -Verbose" -Wait
 
