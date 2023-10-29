@@ -1,5 +1,5 @@
 $Global:Transcript = "$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-Install-EmbeddedProductKey.log"
-Start-Transcript -Path (Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" $Global:Transcript) -ErrorAction Ignore
+Start-Transcript -Path (Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD" $Global:Transcript) -ErrorAction Ignore
 
 Write-Host -ForegroundColor Green "Get embedded product key"
 $Key = (Get-WmiObject SoftwareLicensingService).OA3xOriginalProductKey
