@@ -14,11 +14,11 @@ $Global:oobeCloud = @{
     oobeSetRegionLanguage = $true
     oobeSetDateTime = $true
     oobeRegisterAutopilot = $false
-    oobeRemoveAppxPackage = $true
+    oobeRemoveAppxPackage = $false
     oobeRemoveAppxPackageName = 'Solitaire'
     oobeAddCapability = $false
-    oobeUpdateDrivers = $true
-    oobeUpdateWindows = $true
+    oobeUpdateDrivers = $false
+    oobeUpdateWindows = $false
     oobeRestartComputer = $true
     oobeStopComputer = $false
 }
