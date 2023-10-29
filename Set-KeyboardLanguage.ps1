@@ -1,5 +1,5 @@
 $Global:Transcript = "$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-Set-KeyboardLanguage.log"
-Start-Transcript -Path (Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" $Global:Transcript) -ErrorAction Ignore
+Start-Transcript -Path (Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD" $Global:Transcript) -ErrorAction Ignore
 
 Write-Host -ForegroundColor Green "Set keyboard language to en-GB"
 Start-Sleep -Seconds 5
