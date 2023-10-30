@@ -75,7 +75,7 @@ Stop-Transcript -Verbose | Out-File
 Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding ascii
 
 # Download ServiceUI.exe
-Write-Host -ForegroundColor Gray "Download ServiceUI.exe from GitHub Repo"
+Write-Host -ForegroundColor Gray "Download ServiceUI.exe from GitHub Repo Akos"
 Invoke-WebRequest https://github.com/AkosBakos/Tools/raw/main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
 
 #Create Scheduled Task for SendKeys with 15 seconds delay
