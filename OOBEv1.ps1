@@ -15,12 +15,6 @@ Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementE
 Write-Host -ForegroundColor DarkGray "Installing NuGet Provider Module"
 Start-Process PowerShell -ArgumentList "-NoProfile Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Verbose" -Wait
 
-Write-Host -ForegroundColor DarkGray "Installing AutopilotOOBE PS Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
-
-Write-Host -ForegroundColor DarkGray "Installing OSD PS Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
-
 Write-Host -ForegroundColor DarkGray "Executing Keyboard Language Skript"
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Set-KeyboardLanguage.ps1" -Wait
 
@@ -53,24 +47,23 @@ Stop-Transcript -Verbose | Out-File
 Out-File -FilePath $ScriptPathOOBE -InputObject $OOBEScript -Encoding ascii
 
 $SendKeysScript = @"
-$Global:Transcript = "$(Get-Date -Format 'yyyy-MM-dd-HHmmss')-SendKeys.log"
-$TranscriptPath = Join-Path "$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" $Global:Transcript
-Start-Transcript -Path $TranscriptPath -ErrorAction Ignore | Out-Null
+`$Global:Transcript = "`$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-SendKeys.log"
+Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
 Write-Host -ForegroundColor DarkGray "Stop Debug-Mode (SHIFT + F10) with WscriptShell.SendKeys"
-$WscriptShell = New-Object -com Wscript.Shell
+`$WscriptShell = New-Object -com Wscript.Shell
 
 # ALT + TAB
 Write-Host -ForegroundColor DarkGray "SendKeys: ALT + TAB"
-$WscriptShell.SendKeys("%({TAB})")
+`$WscriptShell.SendKeys("%({TAB})")
 
 Start-Sleep -Seconds 1
 
 # Shift + F10
 Write-Host -ForegroundColor DarkGray "SendKeys: SHIFT + F10"
-$WscriptShell.SendKeys("+({F10})")
+`$WscriptShell.SendKeys("+({F10})")
 
-Stop-Transcript -Verbose | Out-Null
+Stop-Transcript -Verbose | Out-File
 "@
 
 Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding ascii
