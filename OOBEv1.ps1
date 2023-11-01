@@ -16,16 +16,10 @@ Write-Host -ForegroundColor DarkGray "Executing Keyboard Language Skript"
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host -ForegroundColor DarkGray "Executing Product Key Script"
-Start-Process PowerShell -ArgumentList "-NoL -C https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Install-EmbeddedProductKey.ps1" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Install-EmbeddedProductKey.ps1" -Wait
 
 Write-Host -ForegroundColor DarkGray "Executing Autopilot Check Script"
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://check-autopilotprereq.osdcloud.ch" -Wait
-
-Write-Host -ForegroundColor DarkGray "Executing AutopilotOOBE Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://start-autopilotoobe.osdcloud.ch" -Wait
-
-Write-Host -ForegroundColor DarkGray "Executing OOBEDeploy Script fomr OSDCloud Module"
-Start-Process PowerShell -ArgumentList "-NoL -C Start-OOBEDeploy" -Wait
+Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/check-autopilotprereq.ps1" -Wait
 
 Write-Host -ForegroundColor DarkGray "Executing Cleanup Script"
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://cleanup.osdcloud.ch" -Wait
@@ -44,6 +38,9 @@ Stop-Transcript -Verbose | Out-File
 Out-File -FilePath $ScriptPathOOBE -InputObject $OOBEScript -Encoding ascii
 
 $SendKeysScript = @"
+`$Global:Transcript = "`$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-SendKeys.log"
+Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
+
 Write-Host -ForegroundColor DarkGray "Stop Debug-Mode (SHIFT + F10) with WscriptShell.SendKeys"
 `$WscriptShell = New-Object -com Wscript.Shell
 
@@ -56,13 +53,15 @@ Start-Sleep -Seconds 1
 # Shift + F10
 Write-Host -ForegroundColor DarkGray "SendKeys: SHIFT + F10"
 `$WscriptShell.SendKeys("+({F10})")
+
+Stop-Transcript -Verbose | Out-File
 "@
 
 Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding ascii
 
 # Download ServiceUI.exe
 Write-Host -ForegroundColor Gray "Download ServiceUI.exe from GitHub Repo"
-Invoke-WebRequest https://github.com/MyOLC/OSDCloud/raw/Main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
+Invoke-WebRequest https://github.com/AkosBakos/Tools/raw/main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
 
 #Create Scheduled Task for SendKeys with 15 seconds delay
 $TaskName = "Scheduled Task for SendKeys"
