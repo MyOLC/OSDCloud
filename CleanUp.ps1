@@ -24,4 +24,8 @@ If (Test-Path -Path 'C:\Windows\Setup\Scripts') { Remove-Item 'C:\Windows\Setup\
 #If (Test-Path -Path 'C:\Temp') { Remove-Item 'C:\Temp' -Recurse -Force }
 Get-ChildItem 'C:\Windows\Temp' -Filter *membeer*  | Remove-Item -Force
 
+
+Write-Host "Press any key to continue..."
+$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 Stop-Transcript
