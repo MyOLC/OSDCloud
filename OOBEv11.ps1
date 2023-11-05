@@ -322,9 +322,9 @@ function Step-oobeStopComputer {
 
 # Execute functions
 Step-KeyboardLanguage
-#Step-oobeExecutionPolicy
-#Step-oobePackageManagement
-#Step-oobeTrustPSGallery
+Step-oobeExecutionPolicy
+Step-oobePackageManagement
+Step-oobeTrustPSGallery
 Step-oobeSetDisplay
 Step-oobeSetRegionLanguage
 Step-oobeSetDateTime
