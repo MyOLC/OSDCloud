@@ -20,6 +20,7 @@ If (Test-Path -Path 'C:\Temp') {
 }
 
 # Cleanup directories
+If (Test-Path -Path 'C:\OSDCloud\ServiceUI.exe') { Remove-Item -Path 'C:\OSDCloud\ServiceUI.exe' -Recurse -Force }
 If (Test-Path -Path 'C:\OSDCloud') { Remove-Item -Path 'C:\OSDCloud' -Recurse -Force }
 If (Test-Path -Path 'C:\Drivers') { Remove-Item 'C:\Drivers' -Recurse -Force }
 If (Test-Path -Path 'C:\Windows\Setup\Scripts') { Remove-Item 'C:\Windows\Setup\Scripts' -Recurse -Force }
