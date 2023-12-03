@@ -12,7 +12,13 @@ $OOBEScript =@"
 `$Global:Transcript = "`$((Get-Date).ToString('yyyy-MM-dd-HHmmss'))-OOBEScripts.log"
 Start-Transcript -Path (Join-Path "`$env:ProgramData\Microsoft\IntuneManagementExtension\Logs\OSD\" `$Global:Transcript) -ErrorAction Ignore | Out-Null
 
-Write-Host -ForegroundColor DarkGray "Executing Keyboard Language Skript"
+Write-Host -ForegroundColor DarkGray "Installing AutopilotOOBE PS Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module AutopilotOOBE -Force -Verbose" -Wait
+
+Write-Host -ForegroundColor DarkGray "Installing OSD PS Module"
+Start-Process PowerShell -ArgumentList "-NoL -C Install-Module OSD -Force -Verbose" -Wait
+
+Write-Host -ForegroundColor DarkGray "Executing Keyboard Language Script"
 Start-Process PowerShell -ArgumentList "-NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/MyOLC/OSDCloud/Main/Set-KeyboardLanguage.ps1" -Wait
 
 Write-Host -ForegroundColor DarkGray "Executing Product Key Script"
@@ -61,7 +67,7 @@ Out-File -FilePath $ScriptPathSendKeys -InputObject $SendKeysScript -Encoding as
 
 # Download ServiceUI.exe
 Write-Host -ForegroundColor Gray "Download ServiceUI.exe from GitHub Repo"
-Invoke-WebRequest https://github.com/AkosBakos/Tools/raw/main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
+Invoke-WebRequest https://github.com/MyOLC/OSDCloud/raw/Main/ServiceUI64.exe -OutFile "C:\OSDCloud\ServiceUI.exe"
 
 #Create Scheduled Task for SendKeys with 15 seconds delay
 $TaskName = "Scheduled Task for SendKeys"
