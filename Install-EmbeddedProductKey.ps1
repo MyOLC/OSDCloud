@@ -18,7 +18,4 @@ Else {
     Write-Host -ForegroundColor Red 'No embedded product key found.'
 }
 
-Write-Host "Press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
 Stop-Transcript
