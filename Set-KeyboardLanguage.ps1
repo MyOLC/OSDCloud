@@ -19,7 +19,4 @@ $LanguageList = Get-WinUserLanguageList
 $LanguageList.Remove(($LanguageList | Where-Object LanguageTag -like 'en-US'))
 Set-WinUserLanguageList $LanguageList -Force
 
-Write-Host "Press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
 Stop-Transcript
