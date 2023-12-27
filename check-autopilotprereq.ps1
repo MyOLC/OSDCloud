@@ -261,6 +261,3 @@ Write-Host
 Write-Host -ForegroundColor Yellow "######################################"
 Write-Host -ForegroundColor Yellow "#  Autopilot prerequisite check Done #"
 Write-Host -ForegroundColor Yellow "######################################"
-
-Write-Host "Press any key to continue..."
-$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
