@@ -4,7 +4,7 @@ $Title = "Our Learning Cloud - Hardware Hash"
 $Hidden = @("AssignedUser", "AssignedComputerName","AddToGroup")  # Assuming that the selected GroupTag is also a valid Hidden option
 $GroupTag = "Test1"
 $GroupTagOptions = @("Test2","Test3")
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Force
+Set-ExecutionPolicy Unrestricted -Force
 # Call Start-AutopilotOOBE with the parameters
 Start-AutopilotOOBE -Title $Title -GroupTag $GroupTag -GroupTagOptions $GroupTagOptions -Hidden $Hidden
 
