@@ -60,3 +60,9 @@ if($trust -eq "BDAT" -or $trust -eq "MER"){
 }
 
 Write-Host "Group Tag: $MyGroupTag `r`n" -ForegroundColor Green
+$outputPath = "C:\Temp\"
+if (-not (Test-Path -Path $outputPath -PathType Container)) {
+    New-Item -Path $outputPath -ItemType Directory
+   }
+$MyGroupTag | Out-File -FilePath "C:\Temp\GroupTag.txt" -Encoding utf8
+Write-Host -ForegroundColor Green "Hardware Hash copied."
