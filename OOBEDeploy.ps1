@@ -40,7 +40,7 @@ function Step-KeyboardLanguage {
 function Step-oobeSetDisplay {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeSetDisplay -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeSetDisplay -eq $true)) {
         Write-Host -ForegroundColor Yellow 'Verify the Display Resolution and Scale is set properly'
         Start-Process 'ms-settings:display' | Out-Null
         $ProcessId = (Get-Process -Name 'SystemSettings').Id
@@ -52,7 +52,7 @@ function Step-oobeSetDisplay {
 function Step-oobeSetRegionLanguage {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeSetRegionLanguage -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeSetRegionLanguage -eq $true)) {
         Write-Host -ForegroundColor Yellow 'Setting Region Language to en-GB'
         Set-WinSystemLocale en-GB
         Set-WinHomeLocation -GeoId 0xF2
@@ -63,7 +63,7 @@ function Step-oobeSetRegionLanguage {
 function Step-oobeSetDateTime {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeSetDateTime -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeSetDateTime -eq $true)) {
         Write-Host -ForegroundColor Yellow 'Setting time zone to GMT Standard Time'
         Write-Host -ForegroundColor Yellow 'If this is not configured properly, Certificates and Domain Join may fail'
         Set-TimeZone -Name 'GMT Standard Time' -PassThru
@@ -72,7 +72,7 @@ function Step-oobeSetDateTime {
 function Step-oobeExecutionPolicy {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         if ((Get-ExecutionPolicy) -ne 'RemoteSigned') {
             Write-Host -ForegroundColor Cyan 'Set-ExecutionPolicy RemoteSigned'
             Set-ExecutionPolicy RemoteSigned -Force
@@ -82,7 +82,7 @@ function Step-oobeExecutionPolicy {
 function Step-oobePackageManagement {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         if (Get-Module -Name PowerShellGet -ListAvailable | Where-Object {$_.Version -ge '2.2.5'}) {
             Write-Host -ForegroundColor Cyan 'PowerShellGet 2.2.5 or greater is installed'
         }
@@ -98,7 +98,7 @@ function Step-oobePackageManagement {
 function Step-oobeTrustPSGallery {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         $PSRepository = Get-PSRepository -Name PSGallery
         if ($PSRepository)
         {
@@ -113,7 +113,7 @@ function Step-oobeTrustPSGallery {
 function Step-oobeInstallModuleAutopilot {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         $Requirement = Import-Module WindowsAutopilotIntune -PassThru -ErrorAction Ignore
         if (-not $Requirement)
         {
@@ -125,7 +125,7 @@ function Step-oobeInstallModuleAutopilot {
 function Step-oobeInstallModuleAzureAd {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         $Requirement = Import-Module AzureAD -PassThru -ErrorAction Ignore
         if (-not $Requirement)
         {
@@ -137,7 +137,7 @@ function Step-oobeInstallModuleAzureAd {
 function Step-oobeInstallScriptAutopilot {
     [CmdletBinding()]
     param ()
-    if ($env:UserName -eq 'defaultuser0') {
+    if ($env:UserName -ne 'defaultuser0') {
         $Requirement = Get-InstalledScript -Name Get-WindowsAutoPilotInfo -ErrorAction SilentlyContinue
         if (-not $Requirement)
         {
@@ -152,7 +152,7 @@ function Step-oobeRegisterAutopilot {
         [System.String]
         $Command
     )
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeRegisterAutopilot -eq $true)) {
         Step-oobeInstallModuleAutopilot
         Step-oobeInstallModuleAzureAd
         Step-oobeInstallScriptAutopilot
@@ -164,7 +164,7 @@ function Step-oobeRegisterAutopilot {
     }
 }
 function Step-oobeRemoveAppxPackage {
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRemoveAppxPackage -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeRemoveAppxPackage -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Removing Appx Packages'
         foreach ($Item in $Global:oobeCloud.oobeRemoveAppxPackageName) {
             if (Get-Command Get-AppxProvisionedPackage) {
@@ -196,7 +196,7 @@ function Step-oobeRemoveAppxPackage {
     }
 }
 function Step-oobeAddCapability {
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeAddCapability -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeAddCapability -eq $true)) {
         Write-Host -ForegroundColor Cyan "Add-WindowsCapability"
         foreach ($Item in $Global:oobeCloud.oobeAddCapabilityName) {
             $WindowsCapability = Get-WindowsCapability -Online -Name "*$Item*" -ErrorAction SilentlyContinue | Where-Object {$_.State -ne 'Installed'}
@@ -212,7 +212,7 @@ function Step-oobeAddCapability {
 function Step-oobeUpdateDrivers {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeUpdateDrivers -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeUpdateDrivers -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Updating Windows Drivers'
         if (!(Get-Module PSWindowsUpdate -ListAvailable -ErrorAction Ignore)) {
             try {
@@ -231,7 +231,7 @@ function Step-oobeUpdateDrivers {
 function Step-oobeUpdateWindows {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeUpdateWindows -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeUpdateWindows -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Updating Windows'
         if (!(Get-Module PSWindowsUpdate -ListAvailable)) {
             try {
@@ -279,7 +279,7 @@ function Invoke-Webhook {
 function Step-oobeRestartComputer {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeRestartComputer -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeRestartComputer -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Build Complete!'
         Write-Warning 'Device will restart in 30 seconds.  Press Ctrl + C to cancel'
         Stop-Transcript
@@ -290,7 +290,7 @@ function Step-oobeRestartComputer {
 function Step-EmbeddedProductKey {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.EmbeddedProductKey -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.EmbeddedProductKey -eq $true)) {
         Write-Host -ForegroundColor Green "Get embedded product key"
         $Key = (Get-WmiObject SoftwareLicensingService).OA3xOriginalProductKey
         If ($Key) {
@@ -310,7 +310,7 @@ function Step-EmbeddedProductKey {
 function Step-oobeStopComputer {
     [CmdletBinding()]
     param ()
-    if (($env:UserName -eq 'defaultuser0') -and ($Global:oobeCloud.oobeStopComputer -eq $true)) {
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.oobeStopComputer -eq $true)) {
         Write-Host -ForegroundColor Cyan 'Build Complete!'
         Write-Warning 'Device will shutdown in 30 seconds. Press Ctrl + C to cancel'
         Stop-Transcript
