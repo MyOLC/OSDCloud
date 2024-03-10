@@ -356,3 +356,29 @@ function Main {
 }
 
 Main
+#Variables to define the Windows OS / Edition etc to be applied during OSDCloud
+$Product = (Get-MyComputerProduct)
+$OSVersion = 'Windows 10' #Used to Determine Driver Pack
+$OSReleaseID = '22H2' #Used to Determine Driver Pack
+$OSName = 'Windows 10 22H2 x64'
+$OSEdition = 'Ent'
+$OSActivation = 'Retail'
+$OSLanguage = 'en-gb'
+#Set OSDCloud Vars
+$Global:MyOSDCloud = [ordered]@{
+    Restart = [bool]$False
+    RecoveryPartition = [bool]$true
+    OEMActivation = [bool]$True
+    WindowsUpdate = [bool]$true
+    WindowsUpdateDrivers = [bool]$true
+    WindowsDefenderUpdate = [bool]$true
+    SetTimeZone = [bool]$true
+    ClearDiskConfirm = [bool]$False
+    ShutdownSetupComplete = [bool]$true
+    SyncMSUpCatDriverUSB = [bool]$true
+}
+#Launch OSDCloud
+Write-Host "Starting OSDCloud" -ForegroundColor Green
+write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
+
+Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
