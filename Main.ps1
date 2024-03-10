@@ -357,11 +357,10 @@ function Main {
 
 Main
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
-$Product = (Get-MyComputerProduct)
 $OSVersion = 'Windows 10' #Used to Determine Driver Pack
 $OSReleaseID = '22H2' #Used to Determine Driver Pack
 $OSName = 'Windows 10 22H2 x64'
-$OSEdition = 'Ent'
+$OSEdition = 'Enterprise'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-gb'
 #Set OSDCloud Vars
