@@ -381,3 +381,7 @@ Write-Host "Starting OSDCloud" -ForegroundColor Green
 write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
 
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
+
+write-host "OSDCloud Process Complete, Running Custom Actions Before Reboot" -ForegroundColor Green
+$global:GroupTag | Out-File -FilePath "C:\Temp\GroupTag.txt" -Encoding utf8
+Write-Host -ForegroundColor Green "GroupTag copied to local drive."
