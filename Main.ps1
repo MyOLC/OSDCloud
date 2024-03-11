@@ -1,5 +1,4 @@
 function Show-Trust {
-    Clear-Host
     Write-Host "=== Select the trust from below ==="
     Write-Host "1. BDAT"
     Write-Host "2. GAT"
@@ -100,7 +99,12 @@ function Valid-GATChoice {
         Default { Write-Host "Invalid choice. Please try again." -ForegroundColor Red}
     }
 }
-
+function Welcome {
+        Clear-Host
+        $welcomeScreen = "ICBfX18gICAgICAgICAgICAgICBfICAgICAgICAgICAgICAgICAgICAgICAgICBfICAgICAgICAgICAgICAgICAgICAgICMjIyMjIyMjKgogLyBfIFwgXyAgIF8gXyBfXyAgfCB8ICAgIF9fXyAgX18gXyBfIF9fIF8gX18gKF8pXyBfXyAgIF9fIF8gICAgICAgICMjIyMjKiojIyMjKiArKysrCnwgfCB8IHwgfCB8IHwgJ19ffCB8IHwgICAvIF8gXC8gX2AgfCAnX198ICdfIFx8IHwgJ18gXCAvIF9gIHwgICAgKyojIyAgICAgICAgICsrKysrKysrCnwgfF98IHwgfF98IHwgfCAgICB8IHxfX3wgIF9fLyAoX3wgfCB8ICB8IHwgfCB8IHwgfCB8IHwgKF98IHwgICsrKysqIyAgICAgICAgID0rKysrKysrKysrCiBcX19fLyBcX18sX3xffCAgICB8X19fX19cX19ffFxfXyxffF98ICB8X3wgfF98X3xffCB8X3xcX18sIHwgKysrKyAgICAgICAgICAgICsrKysrKysrKysrCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8X19fLyAgICsrCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX19fXyAgIF8gICAgICAgICAgICAgICAgICAgICAgIF8gICsrKysgICAgICAgICAgICAgIDo6OjoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8gX19ffCB8IHwgICBfX18gICAgXyAgIF8gICAgX198IHwgICsrKysrKysrKyoqKzo6Ojo6Ojo6CiAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgfCAgICAgfCB8ICAvIF8gXCAgfCB8IHwgfCAgLyBfYCB8CiAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgfF9fXyAgfCB8IHwgKF8pIHwgfCB8X3wgfCB8IChffCB8CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBcX19fX3wgfF98ICBcX19fLyAgIFxfXyxffCAgXF9fLF98Cj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQogICAgICAgICAgICAgaHR0cHM6Ly9vdXJsZWFybmluZ2Nsb3VkLm9yZwogICAgICAgICAgICAgICAgICAgICAgQmhhdmluIFBhdGVsCj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ=="
+        Write-Host $([system.text.encoding]::UTF8.GetString([system.convert]::FromBase64String($welcomeScreen)))
+        Start-Sleep -Seconds 2
+}
 function Valid-DeviceType {
     switch ($DeviceTypes) {
         "1" {$global:DeviceType = "Shared"}
@@ -354,7 +358,7 @@ function Main {
         
     } while ($choice -ne "Q")
 }
-
+Welcome
 Main
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
 $OSVersion = 'Windows 10' #Used to Determine Driver Pack
