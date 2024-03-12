@@ -195,7 +195,7 @@ function Show-DeviceType {
 }
 
 function Show-Location {
-    $SiteLocation = @("BAI","BGGS")
+    $SiteLocation = @("BAI","BGGS","LAN","BRU")
     if ($SiteLocation -contains $global:SiteCode.ToUpper() ){
         if($global:SiteCode -eq "BAI"){
             Write-Host "=== Please select location of device ==="
@@ -257,7 +257,101 @@ function Show-Location {
                      Default {Write-Host "Invalid choice. Please try again."-ForegroundColor Red}
                  }
              } while ($global:Room -eq $null)
-        } 
+        } elseif ($global:SiteCode -eq "LAN"){
+            Write-Host "=== Please select location of device ==="
+            Write-Host "0. Blank (No Room)"
+            Write-Host "1. Room 026"
+            Write-Host "2. Room 120"
+            Write-Host "3. Room 121"
+            Write-Host "4. Room Library"
+            Write-Host "5. Trolley 01"
+            Write-Host "6. Trolley 02"
+            Write-Host "7. Trolley 03"
+            Write-Host "8. Trolley 04"
+            Write-Host "9. Trolley 05"
+            Write-Host "10. Trolley 06"
+            Write-Host "11. Trolley 07"
+            Write-Host "12. Trolley 08"
+            Write-Host "13. Trolley 09"
+            Write-Host "14. Trolley 10"
+            Write-Host "15. Trolley 11"
+            Write-Host "16. Y7 Pastoral"
+            Write-Host "17. Y8 Pastoral"
+            Write-Host "18. Y9 Pastoral"
+            Write-Host "19. Y10 Pastoral"
+            Write-Host "20. Y11 Pastoral"
+            Write-Host ""
+            do {
+               $choice = get-UserChoice
+                switch ($choice) {
+                    "1" {$global:Room = "-026"}
+                    "2" {$global:Room = "-120"}
+                    "3" {$global:Room = "-121"}
+                    "4" {$global:Room = "-Library"}
+                    "5" {$global:Room = "-Trolley01"}
+                    "6" {$global:Room = "-Trolley02"}
+                    "7" {$global:Room = "-Trolley03"}
+                    "8" {$global:Room = "-Trolley04"}
+                    "9" {$global:Room = "-Trolley05"}
+                    "10" {$global:Room = "-Trolley06"}
+                    "11" {$global:Room = "-Trolley07"}
+                    "12" {$global:Room = "-Trolley08"}
+                    "13" {$global:Room = "-Trolley09"}
+                    "14" {$global:Room = "-Trolley10"}
+                    "15" {$global:Room = "-Trolley11"}
+                    "16" {$global:Room = "-Y7Pastoral"}
+                    "17" {$global:Room = "-Y8Pastoral"}
+                    "18" {$global:Room = "-Y9Pastoral"}
+                    "19" {$global:Room = "-Y10Pastoral"}
+                    "20" {$global:Room = "-Y11Pastoral"}
+                    "0" {$global:Room = ""}
+                    Default {Write-Host "Invalid choice. Please try again."-ForegroundColor Red} 
+                }
+            } while ($global:Room -eq $null)
+        } elseif (){
+        Write-Host "=== Please select location of device ==="
+            Write-Host "0. Blank (No Room)"
+            Write-Host "1. Room 1"
+            Write-Host "2. Room 2"
+            Write-Host "3. Room 3"
+            Write-Host "4. Room 4"
+            Write-Host "5. Room 5"
+            Write-Host "6. Room 6"
+            Write-Host "7. Room 11"
+            Write-Host "8. DT1"
+            Write-Host "9. Art 4"
+            Write-Host "10. Lab 13"
+            Write-Host "11. 6th Form"
+            Write-Host "12. MR2"
+            Write-Host "13. MR4"
+            Write-Host "14. PCC"
+            Write-Host "15. ITD"
+            Write-Host "16. G9"
+            Write-Host ""
+            do {
+               $choice = get-UserChoice
+                switch ($choice) {
+                    "1" {$global:Room = "-Room1"}
+                    "2" {$global:Room = "-Room2"}
+                    "3" {$global:Room = "-Room3"}
+                    "4" {$global:Room = "-Room4"}
+                    "5" {$global:Room = "-Room5"}
+                    "6" {$global:Room = "-Room6"}
+                    "7" {$global:Room = "-Room11"}
+                    "8" {$global:Room = "-DT1"}
+                    "9" {$global:Room = "-Art4"}
+                    "10" {$global:Room = "-Lab13"}
+                    "11" {$global:Room = "-6thForm"}
+                    "12" {$global:Room = "-MR2"}
+                    "13" {$global:Room = "-MR4"}
+                    "14" {$global:Room = "-PCC"}
+                    "15" {$global:Room = "-ITD"}
+                    "16" {$global:Room = "-G9"}
+                    "0" {$global:Room = ""}
+                    Default {Write-Host "Invalid choice. Please try again."-ForegroundColor Red} 
+                }
+            } while ($global:Room -eq $null)
+        }
     } 
 }
 function Get-UserChoice {
@@ -403,4 +497,34 @@ if ($global:TrustCode = "BDAT"){
     $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\MER-HashUploadManual.ps1" -Destination "C:\OSDCloud\Scripts\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
 }
 Write-Host -ForegroundColor Green "ServiceUI & Hardware copied to local drive."
-Start-Sleep -Seconds 120
+
+#Define the description of the desired boot entry
+$desiredBootEntryDescription = "Windows 10"
+
+# Get the list of boot entries
+$bootEntries = bcdedit /enum | Select-String "^\s*identifier"
+
+# Initialize a variable to store the identifier of the desired boot entry
+$desiredBootEntryIdentifier = $null
+
+# Find the identifier of the desired boot entry based on its description
+foreach ($line in $bootEntries) {
+    $entry = $line -replace "^\s*identifier\s*", ""
+    $entryInfo = bcdedit /enum $entry
+
+    if ($entryInfo -match "description\s+($desiredBootEntryDescription)") {
+        $desiredBootEntryIdentifier = $entry
+        break
+    }
+}
+
+# If the desired boot entry was found, set it as the default
+if ($desiredBootEntryIdentifier) {
+    Write-Host "Setting '$desiredBootEntryDescription' as the default boot entry..."
+    bcdedit /default $desiredBootEntryIdentifier
+    Write-Host "Default boot entry has been updated."
+} else {
+    Write-Host "Desired boot entry not found."
+}
+
+Restart-Computer -Force
