@@ -370,14 +370,14 @@ $OSLanguage = 'en-gb'
 #Set OSDCloud Vars
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
-    RecoveryPartition = [bool]$true
+    RecoveryPartition = [bool]$False
     OEMActivation = [bool]$True
-    WindowsUpdate = [bool]$true
-    WindowsUpdateDrivers = [bool]$true
-    WindowsDefenderUpdate = [bool]$true
-    SetTimeZone = [bool]$true
+    WindowsUpdate = [bool]$True
+    WindowsUpdateDrivers = [bool]$True
+    WindowsDefenderUpdate = [bool]$True
+    SetTimeZone = [bool]$True
     ClearDiskConfirm = [bool]$False
-    ShutdownSetupComplete = [bool]$true
+    ShutdownSetupComplete = [bool]$False
     SyncMSUpCatDriverUSB = [bool]$true
 }
 #Launch OSDCloud
@@ -387,8 +387,18 @@ write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 
 write-host "OSDCloud Process Complete, Running Custom Actions Before Reboot" -ForegroundColor Green
-if (-not(Test-Path "C:\Temp" -ErrorAction SilentlyContinue)) {
-        New-Item -Path "C:\Temp" -ItemType Directory -Force -ErrorAction SilentlyContinue }
+if (-not(Test-Path "C:\OSDCloud\Temp" -ErrorAction SilentlyContinue)) {
+        New-Item -Path "C:\OSDCloud\Temp" -ItemType Directory -Force -ErrorAction SilentlyContinue }
        
-$global:GroupTag | Out-File -FilePath "C:\Temp\GroupTag.txt" -Encoding utf8
+$global:GroupTag | Out-File -FilePath "C:\OSDCloud\Temp\GroupTag.txt" -Encoding utf8
 Write-Host -ForegroundColor Green "GroupTag copied to local drive."
+$null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\ServiceUI.exe" -Destination "C:\OSDCloud\ServiceUI.exe" -Force -ErrorAction SilentlyContinue
+if ($global:TrustCode = "BDAT"){
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\BDAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+} elseif($global:TrustCode = "GAT"){
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\GAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+} elseif ($global:TrustCode = "MER"){
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\MER-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+}
+Write-Host -ForegroundColor Green "ServiceUI & Hardware copied to local drive."
+Start-Sleep -Seconds 120
