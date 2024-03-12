@@ -308,7 +308,7 @@ function Show-Location {
                     Default {Write-Host "Invalid choice. Please try again."-ForegroundColor Red} 
                 }
             } while ($global:Room -eq $null)
-        } elseif (){
+        } elseif ($global:SiteCode -eq "BRU"){
         Write-Host "=== Please select location of device ==="
             Write-Host "0. Blank (No Room)"
             Write-Host "1. Room 1"
