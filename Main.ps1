@@ -370,7 +370,7 @@ function Build-GroupTag {
         if ($global:DeviceType -ne "DfE"){
             $global:GroupTag = $global:SiteCode + $global:DeviceType + $global:Room
         }else{
-            if (($global:SiteCode -ne "BRA") -And ($global:SiteCode -ne "BRI")) {
+            if (($global:SiteCode -ne "BRA") -And ($global:SiteCode -ne "BRU")) {
                 $global:GroupTag = $global:SiteCode + "DfE"
             } else {
                 $global:GroupTag = $global:SiteCode + "-DfE"
