@@ -60,7 +60,7 @@ function Valid-GATChoice {
         "1" {$global:SiteCode = 'BCA'}
         "2" {$global:SiteCode = 'BPA'}
         "3" {$global:SiteCode = 'BRA'}
-        "4" {$global:SiteCode = 'BRI'}
+        "4" {$global:SiteCode = 'BRU'}
         "5" {$global:SiteCode = 'CPA'}
         "6" {$global:SiteCode = 'CPC'}
         "7" {$global:SiteCode = 'DfE'}
@@ -118,7 +118,7 @@ function Show-GATSites {
     Write-Host "1. BCA - Bishop Creighton Academy"
     Write-Host "2. BPA - Beacon Primary Academy"
     Write-Host "3. BRA - The Bramble Academy"
-    Write-Host "4. BRI - The Brunts Academy"
+    Write-Host "4. BRU - The Brunts Academy"
     Write-Host "5. CPA - City of Peterborough Academy"
     Write-Host "6. CPC - Corby Primary Academy"
     Write-Host "7. DfE - Department of Education"
