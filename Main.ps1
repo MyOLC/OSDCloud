@@ -394,11 +394,11 @@ $global:GroupTag | Out-File -FilePath "C:\OSDCloud\Temp\GroupTag.txt" -Encoding 
 Write-Host -ForegroundColor Green "GroupTag copied to local drive."
 $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\ServiceUI.exe" -Destination "C:\OSDCloud\ServiceUI.exe" -Force -ErrorAction SilentlyContinue
 if ($global:TrustCode = "BDAT"){
-    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\BDAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\BDAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Scripts\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
 } elseif($global:TrustCode = "GAT"){
-    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\GAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\GAT-HashUploadManual.ps1" -Destination "C:\OSDCloud\Scripts\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
 } elseif ($global:TrustCode = "MER"){
-    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\MER-HashUploadManual.ps1" -Destination "C:\OSDCloud\Script\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
+    $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\MER-HashUploadManual.ps1" -Destination "C:\OSDCloud\Scripts\HashUploadManual.ps1" -Force -ErrorAction SilentlyContinue
 }
 Write-Host -ForegroundColor Green "ServiceUI & Hardware copied to local drive."
 Start-Sleep -Seconds 120
