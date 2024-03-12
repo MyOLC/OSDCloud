@@ -391,6 +391,8 @@ if (-not(Test-Path "C:\OSDCloud\Temp" -ErrorAction SilentlyContinue)) {
         New-Item -Path "C:\OSDCloud\Temp" -ItemType Directory -Force -ErrorAction SilentlyContinue }
        
 $global:GroupTag | Out-File -FilePath "C:\OSDCloud\Temp\GroupTag.txt" -Encoding utf8
+$null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\SetupComplete.cmd" -Destination "C:\OSDCloud\Scripts\SetupComplete\SetupComplete.cmd" -Force -ErrorAction SilentlyContinue
+$null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\SetupComplete.ps1" -Destination "C:\OSDCloud\Scripts\SetupComplete\SetupComplete.ps1" -Force -ErrorAction SilentlyContinue
 Write-Host -ForegroundColor Green "GroupTag copied to local drive."
 $null = Copy-Item -Path "X:\OSDCloud\Config\Scripts\SetupComplete\ServiceUI.exe" -Destination "C:\OSDCloud\ServiceUI.exe" -Force -ErrorAction SilentlyContinue
 if ($global:TrustCode = "BDAT"){
