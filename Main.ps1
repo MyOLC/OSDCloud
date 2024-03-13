@@ -1,4 +1,4 @@
-function Show-Trust {
+1function Show-Trust {
     Write-Host "=== Select the trust from below ==="
     Write-Host "1. BDAT"
     Write-Host "2. GAT"
@@ -398,13 +398,13 @@ function Main {
                     $Site = Get-UserChoice
                     Valid-BDATChoice
                 } while ($SiteCode -eq $null)
-                Write-Host "Site: "$global:SiteCode -ForegroundColor yellow
+                Write-Host "Site code selected: "$global:SiteCode -ForegroundColor yellow
                 Show-DeviceType
                 do {
                     $DeviceTypes = Get-UserChoice
                     Valid-DeviceType
                 } while ($DeviceType -eq $null)
-                Write-Host "Device Type: "$global:DeviceType -ForegroundColor yellow
+                Write-Host "Device Type selected: "$global:DeviceType -ForegroundColor yellow
                 Show-Location
                 $Choice = "Q" 
                 Build-GroupTag
@@ -417,13 +417,13 @@ function Main {
                     $Site = Get-UserChoice
                     Valid-GATChoice
                 } while ($SiteCode -eq $null)
-                Write-Host "Site: "$global:SiteCode -ForegroundColor yellow
+                Write-Host "Site code selected: "$global:SiteCode -ForegroundColor yellow
                 Show-DeviceType
                 do {
                     $DeviceTypes = Get-UserChoice
                     Valid-DeviceType
                 } while ($DeviceType -eq $null)
-                Write-Host "Device Type: "$global:DeviceType -ForegroundColor yellow
+                Write-Host "Device Type selected: "$global:DeviceType -ForegroundColor yellow
                 Show-Location
                 $Choice = "Q" 
                 Build-GroupTag
@@ -436,13 +436,13 @@ function Main {
                     $Site = Get-UserChoice
                     Valid-MERChoice
                 } while ($SiteCode -eq $null)
-                Write-Host "Site: "$global:SiteCode -ForegroundColor yellow
+                Write-Host "Site code selected: "$global:SiteCode -ForegroundColor yellow
                 Show-DeviceType
                 do {
                     $DeviceTypes = Get-UserChoice
                     Valid-DeviceType
                 } while ($DeviceType -eq $null)
-                Write-Host "Device Type: "$global:DeviceType -ForegroundColor yellow
+                Write-Host "Device Type selected: "$global:DeviceType -ForegroundColor yellow
                 Show-Location
                 $Choice = "Q" 
                 Build-GroupTag
