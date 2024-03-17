@@ -461,9 +461,15 @@ function Main {
 Welcome
 Main
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
-$OSVersion = 'Windows 10' #Used to Determine Driver Pack
-$OSReleaseID = '22H2' #Used to Determine Driver Pack
-$OSName = 'Windows 10 22H2 x64'
+if ($global:SiteCode -ne "BRU"){
+    $OSVersion = 'Windows 10' #Used to Determine Driver Pack
+    $OSReleaseID = '22H2' #Used to Determine Driver Pack
+    $OSName = 'Windows 10 22H2 x64'
+} elseif ($global:SiteCode -eq "BRU") {
+    $OSVersion = 'Windows 11' #Used to Determine Driver Pack
+    $OSReleaseID = '22H2' #Used to Determine Driver Pack
+    $OSName = 'Windows 11 22H2 x64'
+}
 $OSEdition = 'Enterprise'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-gb'
