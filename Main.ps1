@@ -1,4 +1,4 @@
-1function Show-Trust {
+function Show-Trust {
     Write-Host "=== Select the trust from below ==="
     Write-Host "1. BDAT"
     Write-Host "2. GAT"
