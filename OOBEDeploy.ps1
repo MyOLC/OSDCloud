@@ -340,12 +340,12 @@ function Step-oobeUpdateEdge {
             $ExitCode = 1
         }
 Else {
-    Write-Host "Current Microsoft Edge $UpdateChannel version $EdgeVersionOld"
+    Write-Host "Current Microsoft Edge $UpdateChannel version $EdgeVersionOld" -ForegroundColor Red
     #Determine latest Microsoft Edge Version depending on the update channel
     $EdgeInfo = (Invoke-WebRequest -UseBasicParsing -uri 'https://edgeupdates.microsoft.com/api/products?view=enterprise')
 
     [System.Version]$EdgeVersionLatest = ((($EdgeInfo.content | Convertfrom-json) | Where-Object {$_.product -eq $UpdateChannel}).releases | Where-Object {$_.Platform -eq $Platform -and $_.architecture -eq $architecture})[0].productversion
-    Write-Host "Latest $UpdateChannel Microsoft Edge version is $EdgeVersionLatest"
+    Write-Host "Latest $UpdateChannel Microsoft Edge version is $EdgeVersionLatest" -ForegroundColor yellow
 				
     #Check if Microsoft Edge is already up to date
     If ($EdgeVersionOld -ge $EdgeVersionLatest) {
@@ -367,7 +367,7 @@ Else {
             Write-Host "Checking current Edge version"
             Start-Sleep -Seconds 15
         } While ($EdgeVersionNew -lt $EdgeVersionLatest)
-        Write-Host "Microsoft Edge $UpdateChannel version updated to $EdgeVersionNew"
+        Write-Host "Microsoft Edge $UpdateChannel version updated to $EdgeVersionNew" -ForegroundColor Green
     }
 
     }
