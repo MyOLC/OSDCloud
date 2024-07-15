@@ -340,7 +340,7 @@ function Step-oobeUpdateEdge {
             $ExitCode = 1
         }
 Else {
-    Write-Host "Current Microsoft Edge $UpdateChannel version $EdgeVersionOld" -ForegroundColor Red
+    Write-Host "Current Microsoft Edge version $EdgeVersionOld" -ForegroundColor Red
     #Determine latest Microsoft Edge Version depending on the update channel
     $EdgeInfo = (Invoke-WebRequest -UseBasicParsing -uri 'https://edgeupdates.microsoft.com/api/products?view=enterprise')
 
