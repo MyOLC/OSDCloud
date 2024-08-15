@@ -288,7 +288,7 @@ function Step-oobeRestartComputer {
         Restart-Computer
     }
 }
-function Step-EmbeddedProductKey {
+function Step-xEmbeddedProductKey {
     [CmdletBinding()]
     param ()
     if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.EmbeddedProductKey -eq $true)) {
@@ -308,6 +308,60 @@ function Step-EmbeddedProductKey {
         }
     }
 }
+function Step-EmbeddedProductKey {
+    [CmdletBinding()]
+    param ()
+    if (($env:UserName -ne 'defaultuser0') -and ($Global:oobeCloud.EmbeddedProductKey -eq $true)) {
+        Write-Host -ForegroundColor Green "Get embedded product key"
+        $Key = (Get-WmiObject SoftwareLicensingService).OA3xOriginalProductKey
+        If ($Key) {
+            Write-Host -ForegroundColor Green "Installing embedded product key"
+            Invoke-Command -ScriptBlock {& 'cscript.exe' "$env:windir\system32\slmgr.vbs" '/ipk' "$($Key)"}
+            Start-Sleep -Seconds 5
+
+            Write-Host -ForegroundColor Green "Activating embedded product key"
+            Invoke-Command -ScriptBlock {& 'cscript.exe' "$env:windir\system32\slmgr.vbs" '/ato'}
+            Start-Sleep -Seconds 5
+            $WindowsProductKey =  (Get-WmiObject -query "select * from SoftwareLicensingService").OA3xOriginalProductKey
+            $WindowsProductType = (Get-WmiObject -query "select * from SoftwareLicensingService").OA3xOriginalProductKeyDescription
+           
+            # Write-Host "[BIOS] Windows Product Key: $WindowsProductKey" -ForegroundColor Yellow
+            Write-Host "[BIOS] Windows Product Type: $WindowsProductType" -ForegroundColor Yellow
+            
+            If($WindowsProductType -like "*Professional*" -or $WindowsProductType -eq "Windows 10 Pro" -or $WindowsProductType -like "*Enterprise*"){
+                Write-Host "BIOS Windows license is suited for MS365 enrollment" -ForegroundColor Green
+            }
+            else{
+                Write-Host "BIOS Windows license is not suited for MS365 enrollment" -ForegroundColor red
+                $WindowsProductType = get-computerinfo | select WindowsProductName 
+                $WindowsProductType = $WindowsProductType.WindowsProductName
+                
+                Write-Host "[SOFTWARE] Windows Product Key: $WindowsProductKey" -ForegroundColor Yellow
+                Write-Host "[SOFTWARE] Windows Product Type: $WindowsProductType" -ForegroundColor Yellow
+                
+                If($WindowsProductType -like "*Professional*" -or $WindowsProductType -eq "Windows 10 Pro" -or $WindowsProductType -like "*Enterprise*"){
+                    Write-Host "SOFTWARE Windows license is valid for MS365 enrollment" -ForegroundColor Green
+                }
+                else{
+                    Write-Host "SOFTWARE Windows license is not valid for MS365 Enrollment" -ForegroundColor red
+                    Write-Host "Revert the changes. Adding GVLK Key" -ForegroundColor Yellow
+                    $key = "96YNV-9X4RP-2YYKB-RMQH4-6Q72D"
+                    Invoke-Command -ScriptBlock {& 'cscript.exe' "$env:windir\system32\slmgr.vbs" '/ipk' "$($Key)"}
+                    Start-Sleep -Seconds 5
+        
+                    Write-Host -ForegroundColor Green "Activating embedded product key"
+                    Invoke-Command -ScriptBlock {& 'cscript.exe' "$env:windir\system32\slmgr.vbs" '/ato'}
+                    Start-Sleep -Seconds 5
+                    Write-Host "Successfully activated GVLK Key." -ForegroundColor Green
+                }
+            }
+        }
+        Else {
+            Write-Host -ForegroundColor Red 'No embedded product key found.'
+        }
+    }
+}
+
 function Step-oobeStopComputer {
     [CmdletBinding()]
     param ()
