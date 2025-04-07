@@ -35,6 +35,7 @@ if (Test-Path $JsonPath) {
 
     # Rename
     #Rename-Computer -NewName $NewName -Force -Restart
+    Rename-Computer -NewName $NewName
 }
 else {
     Write-Host "LocationInfo.json not found at $JsonPath"
